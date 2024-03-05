@@ -108,7 +108,6 @@ function handleCardClick(event) {
       matchesFound++;
       score += 20;
       currentScore.innerText = score
-      console.log(score)
       for (const element of clicked) {
         element.classList.remove("clicked");
         element.classList.add("found");
