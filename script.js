@@ -1,4 +1,12 @@
 const gameContainer = document.getElementById("game");
+const button = document.querySelector("button")
+const bestScore = document.querySelector(".best-score-value")
+
+let colorsClicked = [];
+let matchesFound = 0;
+let score = 0;
+
+bestScore.innerText = localStorage.bestScore || 0
 
 const COLORS = [
   "red",
@@ -12,6 +20,8 @@ const COLORS = [
   "orange",
   "purple",
 ];
+
+
 
 // here is a helper function to shuffle an array
 // it returns the same array with values shuffled
@@ -47,7 +57,7 @@ function createDivsForColors(colorArray) {
     const newDiv = document.createElement("div");
     // give it a class attribute for the value we are looping over
     newDiv.classList.add(color);
-   
+
     // call a function handleCardClick when a div is clicked on
     newDiv.addEventListener("click", handleCardClick);
 
@@ -56,8 +66,7 @@ function createDivsForColors(colorArray) {
   }
 }
 
-colorsClicked = [];
-matchesFound = 0;
+
 // TODO: Implement this function!
 function handleCardClick(event) {
   // you can use event.target to see which element was clicked
@@ -83,6 +92,8 @@ function handleCardClick(event) {
       }, 1000);
     }
     if (colorsClicked[0] !== colorsClicked[1]) {
+      score -= 2
+      console.log(score)
       for (const element of clicked) {
         setTimeout(() => {
           element.style.background = "";
@@ -92,20 +103,48 @@ function handleCardClick(event) {
       colorsClicked = [];
     } else {
       matchesFound++;
+      score += 20;
+      console.log(score)
       for (const element of clicked) {
         element.classList.remove("clicked");
         element.classList.add("found");
-        element.removeEventListener("click", handleCardClick);   
+        element.removeEventListener("click", handleCardClick);
       }
       colorsClicked = [];
     }
   }
-  if(matchesFound === 5) {
-    const h2 = document.createElement("h2")
-    h2.innerText = "You did it!"
-    gameContainer.append(h2)
+  if (matchesFound === 5) {
+    const div = document.createElement("div")
+    div.classList.add("you-win")
+
+    const scoreH2 = document.createElement("h2");
+    scoreH2.classList.add("you-win-text");
+    scoreH2.innerText = `You scored ${score} points!`;
+
+    const btn = document.createElement("button")
+    btn.classList.add("restart-btn")
+    btn.innerText = "Restart Game"
+    btn.addEventListener("click", () => {
+      location.reload()
+    })
+
+    div.append(scoreH2)
+    div.append(btn)
+    gameContainer.append(div);
+
+    if(score > localStorage.getItem("bestScore")) {
+      bestScore.innerText = score
+      localStorage.setItem("bestScore", score)
+    }  
   }
 }
 
 // when the DOM loads
 createDivsForColors(shuffledColors);
+
+button.addEventListener("click", () => {
+  location.reload()
+})
+
+
+
