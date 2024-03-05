@@ -47,7 +47,7 @@ function createDivsForColors(colorArray) {
     const newDiv = document.createElement("div");
     // give it a class attribute for the value we are looping over
     newDiv.classList.add(color);
-
+   
     // call a function handleCardClick when a div is clicked on
     newDiv.addEventListener("click", handleCardClick);
 
@@ -100,7 +100,11 @@ function handleCardClick(event) {
       colorsClicked = [];
     }
   }
-  if(matchesFound === 5) alert("You did it!")
+  if(matchesFound === 5) {
+    const h2 = document.createElement("h2")
+    h2.innerText = "You did it!"
+    gameContainer.append(h2)
+  }
 }
 
 // when the DOM loads
