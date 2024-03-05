@@ -1,6 +1,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   margin: 0;
+  padding: 0;
 }
 
 nav {
@@ -27,9 +28,20 @@ button:hover {
   background-color: rgb(106, 33, 173);
 }
 
-.best-score-text {
+.scores {
+  display: flex;
+  flex-direction: column;
+  padding-block: .5rem;
+}
+
+.best-score-text, .current-score-text {
   color: rgb(106, 33, 173); 
   font-size: 1.3rem;
+  margin: 0;
+}
+
+.best-score-text {
+  padding-bottom: .5rem;
 }
 
 #game {
@@ -43,7 +55,7 @@ section {
   margin: 0 auto;
 }
 
-#game div{
+#game div {
   border: 1px solid black;
   width: 15%;
   height: 200px;

@@ -1,12 +1,14 @@
 const gameContainer = document.getElementById("game");
 const button = document.querySelector("button")
 const bestScore = document.querySelector(".best-score-value")
+const currentScore = document.querySelector(".current-score-value")
 
 let colorsClicked = [];
 let matchesFound = 0;
 let score = 0;
 
 bestScore.innerText = localStorage.bestScore || 0
+currentScore.innerText = 0
 
 const COLORS = [
   "red",
@@ -91,9 +93,10 @@ function handleCardClick(event) {
         }
       }, 1000);
     }
+
     if (colorsClicked[0] !== colorsClicked[1]) {
       score -= 2
-      console.log(score)
+      currentScore.innerText = score
       for (const element of clicked) {
         setTimeout(() => {
           element.style.background = "";
@@ -104,6 +107,7 @@ function handleCardClick(event) {
     } else {
       matchesFound++;
       score += 20;
+      currentScore.innerText = score
       console.log(score)
       for (const element of clicked) {
         element.classList.remove("clicked");
@@ -113,6 +117,7 @@ function handleCardClick(event) {
       colorsClicked = [];
     }
   }
+
   if (matchesFound === 5) {
     const div = document.createElement("div")
     div.classList.add("you-win")
