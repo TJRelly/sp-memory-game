@@ -91,15 +91,16 @@ function handleCardClick(event) {
       }
       colorsClicked = [];
     } else {
+      matchesFound++;
       for (const element of clicked) {
         element.classList.remove("clicked");
         element.classList.add("found");
-        element.removeEventListener("click", handleCardClick);
-        matchesFound++;
+        element.removeEventListener("click", handleCardClick);   
       }
       colorsClicked = [];
     }
   }
+  if(matchesFound === 5) alert("You did it!")
 }
 
 // when the DOM loads
